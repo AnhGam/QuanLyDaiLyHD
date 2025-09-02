@@ -1,16 +1,24 @@
 ﻿using QuanLyDaiLyHD.Services;
+using QuanLyDaiLyHD.Configs;
 namespace QuanLyDaiLyHD.ServiceImpls;
 
 public class DatabaseServiceImpl : DatabaseService
 {
-    private readonly Configs.DatabaseConfig _databaseConfig;
-    public DatabaseServiceImpl(Configs.DatabaseConfig databaseConfig)
+    private readonly DatabaseConfig databaseConfig;
+    public DatabaseServiceImpl(DatabaseConfig databaseConfig)
     {
-        _databaseConfig = databaseConfig;
+        this.databaseConfig = databaseConfig;
     }
     public  async Task InitializeAsync()
     {
-        await _databaseConfig.InitializeAsync();
+        await databaseConfig.Initialize();
+
 
     }
+    private async Task SeedData()
+    {
+        await Task.CompletedTask;
+    }
+
+
 }
