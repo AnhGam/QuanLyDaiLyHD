@@ -15,15 +15,16 @@ public class DatabaseConfig
 
     public static string GetResourcePath()
     {
-        string appDirectory = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location) ?? AppDomain.CurrentDomain.BaseDirectory;
+        string appDirectory = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location) ?? 
+                                                    AppDomain.CurrentDomain.BaseDirectory;
         string relativePath = Path.Combine(appDirectory, @"C:\Users\Admin\source\repos\QuanLyDaiLyHD\QuanLyDaiLyHD\Resources\Database");
         string databaseDirectory = Path.GetFullPath(relativePath);
         Directory.CreateDirectory(databaseDirectory);
         return Path.Combine(databaseDirectory, $"QuanLyDaiLy.db");
     }
-    
-    public async Task InitializeAsync()
+
+    public void Initialize()
     {
-        await _dataContext.Database.EnsureCreatedAsync();
+        _dataContext.Database.EnsureCreated();
     }
 }

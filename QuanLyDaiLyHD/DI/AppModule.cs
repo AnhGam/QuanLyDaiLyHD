@@ -1,25 +1,51 @@
-﻿namespace QuanLyDaiLyHD.DI;
+﻿using Microsoft.EntityFrameworkCore;
+using QuanLyDaiLyHD.Configs;
 using QuanLyDaiLyHD.Data;
-using QuanLyDaiLyHD.Services;
+using QuanLyDaiLyHD.Interfaces;
+using QuanLyDaiLyHD.Repositories;
 using QuanLyDaiLyHD.ServiceImpls;
-using Microsoft.EntityFrameworkCore;
+using QuanLyDaiLyHD.Services;
+using QuanLyDaiLyHD.ViewModels.DaiLyViewModels;
+using QuanLyDaiLyHD.Views.DaiLyViews;
+
+namespace QuanLyDaiLyHD.DI;
+
 public static class AppModule
 {
-    //IServiceProvider : Dung de lay service da dang ky
+    // IServiceProvider: Dung de lay ra cac service da duoc dang ky
     public static IServiceCollection RegisterDependency(this IServiceCollection services)
     {
-        // Register 
-        services.AddSingleton<Configs.DatabaseConfig>();
-        // Register DbContext ( for SQlite)
-        services.AddDbContext<Data.DataContext>(static (serviceProvider, options) =>
+        // Đăng ký ở chỗ này
+        services.AddSingleton<DatabaseConfig>();
+
+        // Đăng ký cho SQLite 
+        services.AddDbContext<DataContext>((serviceProvider, options) =>
         {
-            var dbPath = Configs.DatabaseConfig.GetResourcePath();
-            options.UseSqlite($"Data Source={dbPath}");
+            var databasePath = DatabaseConfig.GetResourcePath();
+            options.UseSqlite($"Data Source={databasePath}");
         });
-        services.AddScoped<DatabaseService,DatabaseServiceImpl>();
+
+        // Đăng ký các service khác ở đây
+        services.AddTransient<DatabaseService, DatabaseServiceImpl>();
+        services.AddScoped<IDaiLyService, DaiLyServiceImpl>();
+        services.AddScoped<ILoaiDaiLyService, LoaiDaiLyServiceImpl>();
+        services.AddScoped<IQuanService, QuanServiceImpl>();
+        services.AddScoped<IThamSoService, ThamSoServiceImpl>();
+
+        // Đăng ký Repository
+        services.AddScoped<IDaiLyRepository, DaiLyRepository>();
+        services.AddScoped<ILoaiDaiLyRepository, LoaiDaiLyRepository>();
+        services.AddScoped<IQuanRepository, QuanRepository>();
+        services.AddScoped<IThamSoRepository, ThamSoRepository>();
+
+        // Đăng ký Views 
+        services.AddTransient<DanhSachDaiLyPage>();
+        services.AddTransient<ThemDaiLyWindow>();
+
+        // Đăng ký ViewModels
+        services.AddTransient<DanhSachDaiLyPageViewModel>();
+        services.AddTransient<ThemDaiLyWindowViewModel>();
+
         return services;
     }
 }
-//SingleTon : Tao 1 lan, dung ca app
-//Transient : Can thi moi tao
-// Scoped :Tuong tu singleton, nhung chi Tao 1 lan trong 1 scope (vd: 1 request)

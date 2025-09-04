@@ -57,6 +57,8 @@
 	</ItemGroup>
 
 	<ItemGroup>
+		<PackageReference Include="CommunityToolkit.Maui" Version="9.1.1" />
+		<PackageReference Include="CommunityToolkit.Mvvm" Version="8.4.0" />
 		<PackageReference Include="Microsoft.EntityFrameworkCore" Version="9.0.8" />
 		<PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite" Version="9.0.8" />
 		<PackageReference Include="Microsoft.Maui.Controls" Version="$(MauiVersion)" />
@@ -65,9 +67,18 @@
 	</ItemGroup>
 
 	<ItemGroup>
-	  <Folder Include="Repositories\" />
-	  <Folder Include="ViewModels\" />
-	  <Folder Include="Views\" />
+	  <Compile Update="Views\DaiLyViews\DanhSachDaiLy.xaml.cs">
+	    <DependentUpon>DanhSachDaiLy.xaml</DependentUpon>
+	  </Compile>
+	</ItemGroup>
+
+	<ItemGroup>
+	  <MauiXaml Update="Views\DaiLyViews\DanhSachDaiLy.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="Views\DaiLyViews\ThemDaiLyWindow.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
 	</ItemGroup>
 
 </Project>
