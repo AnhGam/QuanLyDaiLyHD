@@ -1,6 +1,8 @@
 ﻿using Microsoft.Extensions.Logging;
 using QuanLyDaiLyHD.DI;
 using System.Data.SqlTypes;
+using CommunityToolkit.Maui;
+using QuanLyDaiLyHD.Services;
 
 namespace QuanLyDaiLyHD
 {
@@ -11,6 +13,7 @@ namespace QuanLyDaiLyHD
             var builder = MauiApp.CreateBuilder();
             builder
                 .UseMauiApp<App>()
+                .UseMauiCommunityToolkit()
                 .ConfigureFonts(fonts =>
                 {
                     fonts.AddFont("OpenSans-Regular.ttf", "OpenSansRegular");
@@ -18,17 +21,15 @@ namespace QuanLyDaiLyHD
                 });
 
 #if DEBUG
-    		builder.Logging.AddDebug();
+            builder.Logging.AddDebug();
 #endif
+
             builder.Services.RegisterDependency();
-            // Tự config -> IServiceProvider
-            // IServiceCollection
+
             var appBuilder = builder.Build();
-            _ = Task.Run(async () =>
-            { 
-                using var scope = appBuilder.Services.CreateScope();
-                await scope.ServiceProvider.GetRequiredService<Services.DatabaseService>().InitializeAsync();
-            });
+
+            appBuilder.Services.GetRequiredService<DatabaseService>().InitializeAsync();
+
             return appBuilder;
         }
     }
