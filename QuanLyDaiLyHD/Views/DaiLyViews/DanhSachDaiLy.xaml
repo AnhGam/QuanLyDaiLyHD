@@ -62,6 +62,7 @@
                 Grid.Column="0"
                 FontAttributes="Bold"
                 Text="Mã Đại Lý"
+                HorizontalOptions="Center"
                 VerticalOptions="Start" />
             <Label
                 Grid.Column="1"
@@ -123,6 +124,7 @@
                             <Label
                                 Grid.Column="0"
                                 Text="{Binding MaDaiLy}"
+                                HorizontalOptions="Center"
                                 VerticalOptions="Start" />
                             <Label
                                 Grid.Column="1"
