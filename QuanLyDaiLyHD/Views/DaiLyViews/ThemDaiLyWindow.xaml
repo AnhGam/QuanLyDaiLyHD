@@ -45,7 +45,7 @@
                     Grid.Column="0"
                     Margin="20,0,0,0"
                     FontAttributes="Bold"
-                    FontSize="18"
+                    FontSize="26"
                     Text="Tiếp nhận đại lý"
                     VerticalOptions="Center" />
 
@@ -54,10 +54,11 @@
                     Margin="0,0,20,0"
                     BackgroundColor="Red"
                     Command="{Binding CloseWindowCommand}"
-                    FontSize="16"
+                    FontSize="20"
                     HeightRequest="40"
                     Text="✕"
                     TextColor="White"
+                    HorizontalOptions="Center"
                     VerticalOptions="Center"
                     WidthRequest="40" />
             </Grid>
@@ -217,23 +218,31 @@
                 <Button
                     BackgroundColor="#00AAFF"
                     Command="{Binding TiepNhanDaiLyCommand}"
-                    Text="➕ Tiếp nhận đại lý"
+                    Text="Thêm đại lý"
                     TextColor="White"
-                    WidthRequest="200" />
+                    WidthRequest="150" >
+                    <Button.ImageSource>
+                        <FontImageSource Glyph="&#xE802;" FontFamily="MyIcons" Size="16" Color="White"/>
+                    </Button.ImageSource>
+                </Button>
 
                 <Button
                     BackgroundColor="#00AAFF"
                     Command="{Binding DaiLyMoiCommand}"
-                    Text="🔄 Đại lý mới"
+                    Text="Đại lý mới"
                     TextColor="White"
-                    WidthRequest="200" />
+                    WidthRequest="150" >
+                    <Button.ImageSource>
+                        <FontImageSource Glyph="&#xE803;" FontFamily="MyIcons" Size="16" Color="White"/>
+                    </Button.ImageSource>
+                </Button>
 
                 <Button
                     BackgroundColor="#00AAFF"
                     Command="{Binding CloseWindowCommand}"
-                    Text="🚪 Thoát"
+                    Text="Thoát"
                     TextColor="White"
-                    WidthRequest="200" />
+                    WidthRequest="100" />
             </HorizontalStackLayout>
         </Grid>
     </Border>

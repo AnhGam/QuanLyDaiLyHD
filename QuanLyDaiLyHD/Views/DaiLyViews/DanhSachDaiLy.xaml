@@ -6,21 +6,35 @@
     xmlns:models="clr-namespace:QuanLyDaiLyHD.Models"
     xmlns:viewmodels="clr-namespace:QuanLyDaiLyHD.ViewModels.DaiLyViewModels"
     x:DataType="viewmodels:DanhSachDaiLyPageViewModel">
-    <VerticalStackLayout Spacing="10">
 
-        <HorizontalStackLayout Margin="10,0">
+    <Grid RowDefinitions="Auto,Auto,Auto,*,Auto" RowSpacing="10" Padding="0,10">
+
+        <!-- Title -->
+        <HorizontalStackLayout Grid.Row="0" Margin="10,0">
             <Label FontSize="Header" Text="{Binding Title}" />
         </HorizontalStackLayout>
 
-        <Grid Margin="10,0">
+        <!-- Action bar -->
+        <Grid Grid.Row="1" Margin="10,0">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*" />
                 <ColumnDefinition Width="*" />
             </Grid.ColumnDefinitions>
 
             <HorizontalStackLayout Grid.Column="0" Spacing="10">
-                <Button Command="{Binding ClickButtonCommand}" Text="Tra cuu Dai Ly" />
-                <Button Command="{Binding LoadCommandCommand}" Text="Load" />
+                <Button
+                    BackgroundColor="#0EAAFD"
+                    Command="{Binding ClickButtonCommand}"
+                    Text="Tra cứu đại lý" />
+                <ImageButton
+                    BackgroundColor="#0EAAFD"
+                    VerticalOptions="Center"
+                    CornerRadius="5"
+                    Command="{Binding LoadCommandCommand}">
+                    <ImageButton.Source>
+                        <FontImageSource Glyph="&#xE803;" FontFamily="MyIcons" Size="16"/>
+                    </ImageButton.Source>
+                </ImageButton>
             </HorizontalStackLayout>
 
             <HorizontalStackLayout
@@ -28,25 +42,25 @@
                 HorizontalOptions="End"
                 Spacing="10">
                 <Button
+                    BackgroundColor="#0EAAFD"
                     Command="{Binding ThemDaiLyButtonCommand}"
-                    Text="Tiep nhan Dai Ly"
+                    Text="Tiếp nhận đại lý"
                     WidthRequest="137" />
                 <Button
+                    BackgroundColor="#0EAAFD"
                     Command="{Binding ClickButtonCommand}"
-                    Text="Cap nhat Dai Ly"
+                    Text="Cập nhật đại lý"
                     WidthRequest="137" />
                 <Button
+                    BackgroundColor="#0EAAFD"
                     Command="{Binding ClickButtonCommand}"
-                    Text="Xoa Dai Ly"
+                    Text="Xóa đại lý"
                     WidthRequest="137" />
             </HorizontalStackLayout>
         </Grid>
 
-        <!--  Table Headers  -->
-        <Grid
-            Margin="10"
-            Padding="5"
-            BackgroundColor="LightGray">
+        <!-- Table Headers -->
+        <Grid Grid.Row="2" Margin="5" Padding="5" BackgroundColor="#0EAAFD">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*" />
                 <ColumnDefinition Width="*" />
@@ -58,117 +72,74 @@
                 <ColumnDefinition Width="*" />
             </Grid.ColumnDefinitions>
 
-            <Label
-                Grid.Column="0"
-                FontAttributes="Bold"
-                Text="Mã Đại Lý"
-                HorizontalOptions="Center"
-                VerticalOptions="Start" />
-            <Label
-                Grid.Column="1"
-                FontAttributes="Bold"
-                Text="Tên Đại Lý"
-                VerticalOptions="Start" />
-            <Label
-                Grid.Column="2"
-                FontAttributes="Bold"
-                Text="Địa Chỉ"
-                VerticalOptions="Start" />
-            <Label
-                Grid.Column="3"
-                FontAttributes="Bold"
-                Text="Email"
-                VerticalOptions="Start" />
-            <Label
-                Grid.Column="4"
-                FontAttributes="Bold"
-                Text="Quan"
-                VerticalOptions="Start" />
-            <Label
-                Grid.Column="5"
-                FontAttributes="Bold"
-                Text="Loai Dai Ly"
-                VerticalOptions="Start" />
-            <Label
-                Grid.Column="6"
-                FontAttributes="Bold"
-                Text="Ngày Tiếp Nhận"
-                VerticalOptions="Start" />
-            <Label
-                Grid.Column="7"
-                FontAttributes="Bold"
-                Text="Nợ Đại Lý"
-                VerticalOptions="Start" />
+            <Label Grid.Column="0" FontAttributes="Bold" Text="Mã Đại Lý" TextColor="White" VerticalOptions="Start" Margin="20,0,0,0"/>
+            <Label Grid.Column="1" FontAttributes="Bold" Text="Tên Đại Lý" TextColor="White" VerticalOptions="Start"/>
+            <Label Grid.Column="2" FontAttributes="Bold" Text="Địa Chỉ" TextColor="White" VerticalOptions="Start"/>
+            <Label Grid.Column="3" FontAttributes="Bold" Text="Email" TextColor="White" VerticalOptions="Start"/>
+            <Label Grid.Column="4" FontAttributes="Bold" Text="Quận" TextColor="White" VerticalOptions="Start"/>
+            <Label Grid.Column="5" FontAttributes="Bold" Text="Loại đại lý" TextColor="White" VerticalOptions="Start"/>
+            <Label Grid.Column="6" FontAttributes="Bold" Text="Ngày Tiếp Nhận" TextColor="White" VerticalOptions="Start"/>
+            <Label Grid.Column="7" FontAttributes="Bold" Text="Nợ Đại Lý" TextColor="White" VerticalOptions="Start"/>
         </Grid>
 
         <!--  Table Data  -->
-        <Grid IsVisible="{Binding IsNotLoading}">
-            <CollectionView ItemsSource="{Binding DsDaiLy}">
-                <CollectionView.ItemTemplate>
-                    <DataTemplate x:DataType="models:DaiLy">
-                        <Grid
-                            Margin="10"
-                            Padding="5"
-                            BackgroundColor="White">
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="*" />
-                                <ColumnDefinition Width="*" />
-                                <ColumnDefinition Width="*" />
-                                <ColumnDefinition Width="*" />
-                                <ColumnDefinition Width="*" />
-                                <ColumnDefinition Width="*" />
-                                <ColumnDefinition Width="*" />
-                                <ColumnDefinition Width="*" />
-                            </Grid.ColumnDefinitions>
+        <CollectionView Grid.Row="3"
+                        ItemsSource="{Binding DsDaiLy}"
+                        ItemsLayout="VerticalList"
+                        VerticalOptions="Fill"
+                        SelectionMode="None"
+                        IsVisible="{Binding IsNotLoading}">
+            <CollectionView.ItemTemplate>
+                <DataTemplate x:DataType="models:DaiLy">
+                    <Grid Margin="5" Padding="10,8" BackgroundColor="White"
+                                                RowDefinitions="Auto,Auto" RowSpacing="6">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
 
-                            <Label
-                                Grid.Column="0"
-                                Text="{Binding MaDaiLy}"
-                                HorizontalOptions="Center"
-                                VerticalOptions="Start" />
-                            <Label
-                                Grid.Column="1"
-                                Text="{Binding Ten}"
-                                VerticalOptions="Start" />
-                            <Label
-                                Grid.Column="2"
-                                Text="{Binding DiaChi}"
-                                VerticalOptions="Start" />
-                            <Label
-                                Grid.Column="3"
-                                Text="{Binding Email}"
-                                VerticalOptions="Start" />
-                            <Label
-                                Grid.Column="4"
-                                Text="{Binding Quan.TenQuan}"
-                                VerticalOptions="Start" />
-                            <Label
-                                Grid.Column="5"
-                                Text="{Binding LoaiDaiLy.TenLoaiDaiLy}"
-                                VerticalOptions="Start" />
-                            <Label
-                                Grid.Column="6"
-                                Text="{Binding NgayTiepNhan, StringFormat='{0:dd/MM/yyyy}'}"
-                                VerticalOptions="Start" />
-                            <Label
-                                Grid.Column="7"
-                                Text="{Binding NoDaiLy, StringFormat='{0:N0}'}"
-                                VerticalOptions="Start" />
+                        <Label Grid.Row="0" Grid.Column="0" Text="{Binding MaDaiLy}"
+                            VerticalTextAlignment="Start" HorizontalTextAlignment="Center" Margin="0,0,30,0"  />
+                        <Label Grid.Row="0" Grid.Column="1" Text="{Binding Ten}"
+                            VerticalTextAlignment="Start" />
+                        <Label Grid.Row="0" Grid.Column="2" Text="{Binding DiaChi}"
+                            VerticalTextAlignment="Start" />
+                        <Label Grid.Row="0" Grid.Column="3" Text="{Binding Email}"
+                            VerticalTextAlignment="Start" />
+                        <Label Grid.Row="0" Grid.Column="4" Text="{Binding Quan.TenQuan}"
+                            VerticalTextAlignment="Start" HorizontalTextAlignment="Start" />
+                        <Label Grid.Row="0" Grid.Column="5" Text="{Binding LoaiDaiLy.TenLoaiDaiLy}"
+                            VerticalTextAlignment="Start" HorizontalTextAlignment="Start" />
+                        <Label Grid.Row="0" Grid.Column="6" 
+                       Text="{Binding NgayTiepNhan, StringFormat='{0:dd/MM/yyyy}'}"
+                           VerticalTextAlignment="Start" HorizontalTextAlignment="Start" />
+                            <Label Grid.Row="0" Grid.Column="7" 
+                           Text="{Binding NoDaiLy, StringFormat='{0:N0}'}"
+                           VerticalTextAlignment="Start" HorizontalTextAlignment="Start" />      
 
-                        </Grid>
-                    </DataTemplate>
-                </CollectionView.ItemTemplate>
-            </CollectionView>
-        </Grid>
+                        <BoxView Grid.Row="1" Grid.ColumnSpan="8"
+                             HeightRequest="1"
+                             BackgroundColor="#E5E7EB"
+                             HorizontalOptions="Fill" />
+                    </Grid>
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+        </CollectionView>
 
-        <ActivityIndicator
-            HeightRequest="50"
-            HorizontalOptions="Center"
-            IsRunning="{Binding IsLoading}"
-            IsVisible="{Binding IsLoading}"
-            VerticalOptions="Center"
-            WidthRequest="50"
-            Color="Blue" />
-
-    </VerticalStackLayout>
+        <!-- Row 4: Loading -->
+        <ActivityIndicator Grid.Row="4"
+                           HeightRequest="50"
+                           WidthRequest="50"
+                           HorizontalOptions="Center"
+                           VerticalOptions="Center"
+                           IsRunning="{Binding IsLoading}"
+                           IsVisible="{Binding IsLoading}"
+                           Color="Blue" />
+    </Grid>
 </ContentPage>
