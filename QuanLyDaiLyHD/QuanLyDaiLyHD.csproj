@@ -79,6 +79,9 @@
 	  <MauiXaml Update="Views\DaiLyViews\ThemDaiLyWindow.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
+	  <MauiXaml Update="Views\DaiLyViews\XoaDaiLyWindow.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
 	</ItemGroup>
 
 </Project>
